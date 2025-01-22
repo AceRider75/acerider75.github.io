@@ -18,7 +18,7 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
-  background-color: var(--background-color);
+  background-color: var(--primary-color);
 
   color: var(--text-color);
   transition: background-color var(--transition-speed), color var(--transition-speed);
