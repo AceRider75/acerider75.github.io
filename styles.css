@@ -23,9 +23,7 @@ body {
   color: var(--text-color);
   transition: background-color var(--transition-speed), color var(--transition-speed);
 }
-main {
-    padding-top: 60px; /* Adjust based on your header height */
-}
+
 header {
   background-color: var(--primary-color);
   color: #fff;
