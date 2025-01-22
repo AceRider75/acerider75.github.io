@@ -23,12 +23,21 @@ body {
   color: var(--text-color);
   transition: background-color var(--transition-speed), color var(--transition-speed);
 }
-
+main {
+    padding-top: 60px; /* Adjust based on your header height */
+}
 header {
   background-color: var(--primary-color);
   color: #fff;
   padding: 1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+
 }
 
 nav ul {
@@ -49,6 +58,11 @@ nav ul li a {
 nav ul li a:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
+nav ul li a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+}
+
 .cta-button {
   background-color: var(--primary-color);
   color: #fff;
