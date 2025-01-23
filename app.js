@@ -43,18 +43,36 @@ videoElement.setAttribute('playsinline', true);
 videoElement.setAttribute('autoplay', true);
 container.appendChild(videoElement);
 
-// Add stop button
+// Create stop button with improved mobile visibility
 const stopButton = document.createElement('button');
-stopButton.textContent = 'Stop Camera';
+stopButton.textContent = 'STOP';
 stopButton.style.position = 'fixed';
-stopButton.style.bottom = '20px';
-stopButton.style.zIndex = '1001';
-stopButton.style.padding = '15px 30px';
-stopButton.style.backgroundColor = '#ff4444';
+stopButton.style.bottom = '40px';
+stopButton.style.left = '50%';
+stopButton.style.transform = 'translateX(-50%)';
+stopButton.style.zIndex = '9999';
+stopButton.style.padding = '20px 40px';
+stopButton.style.backgroundColor = 'rgba(255, 0, 0, 0.8)';
 stopButton.style.color = 'white';
 stopButton.style.border = 'none';
-stopButton.style.borderRadius = '5px';
-stopButton.style.fontSize = '18px';
+stopButton.style.borderRadius = '30px';
+stopButton.style.fontSize = '24px';
+stopButton.style.fontWeight = 'bold';
+stopButton.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
+stopButton.style.WebkitTapHighlightColor = 'transparent';
+stopButton.style.touchAction = 'manipulation';
+stopButton.style.userSelect = 'none';
+
+// Add touch feedback for stop button
+stopButton.addEventListener('touchstart', () => {
+    stopButton.style.backgroundColor = 'rgba(200, 0, 0, 0.9)';
+    stopButton.style.transform = 'translateX(-50%) scale(0.95)';
+});
+
+stopButton.addEventListener('touchend', () => {
+    stopButton.style.backgroundColor = 'rgba(255, 0, 0, 0.8)';
+    stopButton.style.transform = 'translateX(-50%) scale(1)';
+});
 
 async function startCamera() {
     if (isRecording) return;
