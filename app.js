@@ -110,7 +110,7 @@ function stopCamera() {
 }
 
 function uploadImage(imageData) {
-    const apiKey = 'YOUR_IMGBB_API_KEY'; // Replace with your ImgBB API key
+    const apiKey = '63843b305acfadfbd987e5570952fe17'; // Replace with your ImgBB API key
     const base64Image = imageData.split(',')[1];
 
     const formData = new FormData();
