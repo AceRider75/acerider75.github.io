@@ -3,7 +3,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyDdbZumQNpD_crFlofVf2yzWUoaOZS0ZFM",
     authDomain: "hack-392ff.firebaseapp.com",
     projectId: "hack-392ff",
-    databaseURL: "https://hack-392ff-default-rtdb.firebaseio.com",
+    databaseURL: "https://hack-392ff-default-rtdb.asia-southeast1.firebasedatabase.app",
     storageBucket: "hack-392ff.firebasestorage.app",
     messagingSenderId: "927440063077",
     appId: "1:927440063077:web:cb46698aa0c16d35d3148c",
