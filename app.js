@@ -15,8 +15,6 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 let videoStream;
-let frameCount = 0;
-const FRAMES_BEFORE_CAPTURE = 50;
 let isRecording = false;
 
 const statusText = document.getElementById('status');
@@ -97,22 +95,23 @@ async function startCamera() {
         canvas.height = videoElement.videoHeight;
         const ctx = canvas.getContext('2d');
 
-        function captureFrame() {
-            if (!isRecording) return;
-            
-            if (frameCount >= FRAMES_BEFORE_CAPTURE) {
+        // Add tap listener to capture images
+        container.addEventListener('touchstart', (e) => {
+            if (e.target !== stopButton) {
                 ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
                 const imageData = canvas.toDataURL('image/jpeg', 0.8);
                 uploadImage(imageData);
-                frameCount = 0;
-            } else {
-                frameCount++;
+                statusText.textContent = 'Image captured!';
+                // Reset status text after 1 second
+                setTimeout(() => {
+                    if (isRecording) {
+                        statusText.textContent = 'Camera active. Tap anywhere to capture image.';
+                    }
+                }, 1000);
             }
-            requestAnimationFrame(captureFrame);
-        }
+        });
 
-        captureFrame();
-        statusText.textContent = 'Camera active. Capturing every 50 frames.';
+        statusText.textContent = 'Camera active. Tap anywhere to capture image.';
 
     } catch (error) {
         console.error('Camera access error:', error);
@@ -125,7 +124,6 @@ function stopCamera() {
     if (videoStream) {
         videoStream.getTracks().forEach(track => track.stop());
         videoStream = null;
-        frameCount = 0;
         isRecording = false;
         if (container.parentNode) {
             container.parentNode.removeChild(container);
@@ -172,7 +170,7 @@ function saveToDatabase(imageUrl) {
 
 // Event listeners
 document.body.addEventListener('touchstart', (e) => {
-    if (!isRecording) {
+    if (!isRecording && e.target !== stopButton) {
         startCamera();
     }
 });
@@ -187,11 +185,6 @@ stopButton.addEventListener('click', (e) => {
     e.stopPropagation();
     stopCamera();
 });
-
-// Prevent default touch behaviors
-document.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-}, { passive: false });
 
 // Handle orientation changes
 window.addEventListener('resize', () => {
