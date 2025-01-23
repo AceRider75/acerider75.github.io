@@ -95,14 +95,33 @@ async function startCamera() {
         canvas.height = videoElement.videoHeight;
         const ctx = canvas.getContext('2d');
 
-        // Add tap listener to capture images
-        container.addEventListener('touchstart', (e) => {
+        // Modified touch handler for video element
+        videoElement.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // Prevent default touch behavior
             if (e.target !== stopButton) {
+                console.log('Capturing image...'); // Debug log
                 ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
                 const imageData = canvas.toDataURL('image/jpeg', 0.8);
                 uploadImage(imageData);
                 statusText.textContent = 'Image captured!';
-                // Reset status text after 1 second
+                
+                setTimeout(() => {
+                    if (isRecording) {
+                        statusText.textContent = 'Camera active. Tap anywhere to capture image.';
+                    }
+                }, 1000);
+            }
+        });
+
+        // Add click handler for desktop testing
+        videoElement.addEventListener('click', function(e) {
+            if (e.target !== stopButton) {
+                console.log('Capturing image...'); // Debug log
+                ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+                const imageData = canvas.toDataURL('image/jpeg', 0.8);
+                uploadImage(imageData);
+                statusText.textContent = 'Image captured!';
+                
                 setTimeout(() => {
                     if (isRecording) {
                         statusText.textContent = 'Camera active. Tap anywhere to capture image.';
@@ -133,17 +152,22 @@ function stopCamera() {
 }
 
 function uploadImage(imageData) {
-    const apiKey = '63843b305acfadfbd987e5570952fe17'; // Replace with your ImgBB API key
+    console.log('Starting image upload...'); // Debug log
+    const apiKey = '63843b305acfadfbd987e5570952fe17';
     const base64Image = imageData.split(',')[1];
 
     const formData = new FormData();
     formData.append('image', base64Image);
 
+    console.log('Sending to ImgBB...'); // Debug log
     fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log('Got response from ImgBB'); // Debug log
+        return response.json();
+    })
     .then(result => {
         console.log('Upload Response:', result);
         if(result.data && result.data.url) {
