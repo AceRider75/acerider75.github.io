@@ -2,18 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Coin Detection Assistant</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+        }
+
         #app {
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100vh;
             padding: 20px;
+            text-align: center;
         }
-        video {
-            margin: 20px 0;
-            border: 1px solid #ccc;
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #status {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff4444;
+            color: white;
+            cursor: pointer;
+            touch-action: manipulation;
         }
     </style>
     <link rel="icon" href="data:,">
@@ -24,8 +57,10 @@
         <p id="status">Tap anywhere to start camera</p>
     </div>
 
+    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    
     <script src="app.js"></script>
 </body>
 </html>
