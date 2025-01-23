@@ -3,110 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JEE Coaching Center</title>
+    <title>Coin Detection for Visually Impaired</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home" data-section="home">Home</a></li>
-                <li><a href="#courses" data-section="courses">Courses</a></li>
-                <li><a href="#faculty" data-section="faculty">Faculty</a></li>
-                <li><a href="#results" data-section="results">Results</a></li>
-                <li><a href="#contact" data-section="contact">Contact</a></li>
-            </ul>
-        </nav>
-
-
-    </header>
-
-    <main>
-        <section id="home">
-            <h1>Excel in JEE with Expert Coaching</h1>
-            <p>Join our comprehensive JEE preparation program for success</p>
-            <a href="#contact" class="cta-button">Enroll Now</a>
-        </section>
-        <section id="courses">
-            <h2>Our Courses</h2>
-            <div class="course-grid">
-                <div class="course-card">
-                    <h3>JEE Mains</h3>
-                    <p>Comprehensive preparation for JEE Mains exam</p>
-                </div>
-                <div class="course-card">
-                    <h3>JEE Advanced</h3>
-                    <p>Intensive training for JEE Advanced exam</p>
-                </div>
-                <!-- Add more course cards as needed -->
-            </div>
-        </section>
-        <section id="faculty">
-            <h2>Our Expert Faculty</h2>
-            <div class="faculty-grid">
-                <div class="faculty-card">
-                    <img src="faculty1.jpg" alt="Faculty Member 1">
-                    <h3>Dr. Sharma</h3>
-                    <p>Physics Expert</p>
-                </div>
-                <!-- Add more faculty cards -->
-            </div>
-        </section>
-        <section id="results">
-            <h2>Our Success Stories</h2>
-            <div class="results-grid">
-                <div class="result-card">
-                    <img src="student1.jpg" alt="Student 1">
-                    <h3>Rahul Verma</h3>
-                    <p>AIR 50 in JEE Advanced 2024</p>
-                </div>
-                <!-- Add more result cards -->
-            </div>
-        </section>
-        <section id="contact">
-          <h2>Contact Us</h2>
-          <form id="contact-form">
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-              <label for="subject">Subject</label>
-              <select id="subject" name="subject" required>
-                <option value="">Please select</option>
-                <option value="general">General Inquiry</option>
-                <option value="admission">Admission Information</option>
-                <option value="courses">Course Details</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Send Message</button>
-          </form>
-        </section>
-
-        <div class="theme-switch-wrapper">
-          <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div class="slider round"></div>
-          </label>
-          <em>Toggle Dark Mode</em>
-        </div>
-
-    </main>
-
-    <footer>
-
-
-        <!-- Footer content -->
-    </footer>
-
-    <script src="script.js"></script>
+    <div id="app">
+        <h1>Coin Detection Assistant</h1>
+        <p id="status">Tap anywhere to start</p>
+        <button id="toggleButton">Start</button>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
