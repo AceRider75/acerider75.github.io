@@ -1,107 +1,158 @@
 // Firebase configuration
 const firebaseConfig = {
-    // Your Firebase configuration here
+  apiKey: "AIzaSyDdbZumQNpD_crFlofVf2yzWUoaOZS0ZFM",
+  authDomain: "hack-392ff.firebaseapp.com",
+  projectId: "hack-392ff",
+  databaseURL: "https://hack-392ff-default-rtdb.firebaseio.com", // Add this line
+  storageBucket: "hack-392ff.firebasestorage.app",
+  messagingSenderId: "927440063077",
+  appId: "1:927440063077:web:cb46698aa0c16d35d3148c",
+  measurementId: "G-NGG3X7ZK61"
 };
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
-const storage = firebase.storage();
-const storageRef = storage.ref();
+const database = firebase.database();
 
 let recognition;
 let isListening = false;
+let videoStream;
+let frameCount = 0;
+const FRAMES_BEFORE_CAPTURE = 50;
+
 const toggleButton = document.getElementById('toggleButton');
 const statusText = document.getElementById('status');
 
-// Initialize speech recognition
 function initSpeechRecognition() {
-    recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.lang = 'en-US';
-    recognition.continuous = true;
-    recognition.interimResults = false;
+  recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = 'en-US';
+  recognition.continuous = true;
+  recognition.interimResults = false;
 
-    recognition.onresult = handleSpeechResult;
-    recognition.onerror = handleSpeechError;
+  recognition.onresult = handleSpeechResult;
+  recognition.onerror = handleSpeechError;
 }
 
 function handleSpeechResult(event) {
-    const last = event.results.length - 1;
-    const command = event.results[last][0].transcript.trim().toLowerCase();
+  const last = event.results.length - 1;
+  const command = event.results[last][0].transcript.trim().toLowerCase();
 
-    if (command === 'detect coin' || command === 'take picture') {
-        takePicture();
-    } else if (command === 'stop') {
-        stopListening();
-    }
+  if (command === 'start detection') {
+    startCamera();
+  } else if (command === 'stop detection') {
+    stopCamera();
+  }
 }
 
 function handleSpeechError(event) {
-    console.error('Speech recognition error:', event.error);
-    statusText.textContent = 'Error: ' + event.error;
+  console.error('Speech recognition error:', event.error);
+  statusText.textContent = 'Error: ' + event.error;
 }
 
 function startListening() {
-    recognition.start();
-    isListening = true;
-    statusText.textContent = 'Listening... Say "detect coin" or "take picture"';
-    toggleButton.textContent = 'Stop';
+  recognition.start();
+  isListening = true;
+  statusText.textContent = 'Listening... Say "start detection" to begin';
+  toggleButton.textContent = 'Stop Listening';
 }
 
 function stopListening() {
-    recognition.stop();
-    isListening = false;
-    statusText.textContent = 'Tap anywhere to start';
-    toggleButton.textContent = 'Start';
+  recognition.stop();
+  isListening = false;
+  statusText.textContent = 'Tap anywhere to start listening';
+  toggleButton.textContent = 'Start Listening';
 }
 
-function takePicture() {
-    statusText.textContent = 'Taking picture...';
-    
-    // Simulating camera capture and upload
-    setTimeout(() => {
-        const imageData = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigD//2Q==';
-        uploadImage(imageData);
-    }, 1000);
-}
+async function startCamera() {
+  try {
+    videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+    const video = document.createElement('video');
+    video.srcObject = videoStream;
+    video.play();
 
-function uploadImage(imageData) {
-    const imageName = 'coin_' + Date.now() + '.jpg';
-    const imageRef = storageRef.child(imageName);
+    video.addEventListener('loadedmetadata', () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
 
-    imageRef.putString(imageData, 'data_url').then((snapshot) => {
-        statusText.textContent = 'Image uploaded. Analyzing...';
-        // Simulating coin detection result
-        setTimeout(() => {
-            const result = 'This is a 1 rupee coin';
-            speak(result);
-        }, 2000);
-    }).catch((error) => {
-        console.error('Upload failed:', error);
-        statusText.textContent = 'Upload failed. Please try again.';
+      function captureFrame() {
+        if (frameCount >= FRAMES_BEFORE_CAPTURE) {
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const imageData = canvas.toDataURL('image/jpeg');
+          uploadToImgBB(imageData);
+          frameCount = 0;
+        } else {
+          frameCount++;
+        }
+        requestAnimationFrame(captureFrame);
+      }
+
+      captureFrame();
     });
+
+    statusText.textContent = 'Camera started. Capturing images every 50 frames.';
+  } catch (error) {
+    console.error('Error accessing camera:', error);
+    statusText.textContent = 'Error accessing camera. Please try again.';
+  }
+}
+
+function stopCamera() {
+  if (videoStream) {
+    videoStream.getTracks().forEach(track => track.stop());
+    videoStream = null;
+    frameCount = 0;
+    statusText.textContent = 'Camera stopped.';
+  }
+}
+
+function uploadToImgBB(imageData) {
+  const apiKey = '63843b305acfadfbd987e5570952fe17'; // Replace with your actual ImgBB API key
+
+  const formData = new FormData();
+  formData.append('image', imageData.split(',')[1]);
+
+  fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(result => {
+    console.log('Image uploaded to ImgBB:', result.data.url);
+    saveUrlToFirebase(result.data.url);
+  })
+  .catch(error => {
+    console.error('Error uploading to ImgBB:', error);
+  });
+}
+
+function saveUrlToFirebase(imageUrl) {
+  const dbRef = database.ref('images');
+  dbRef.push({
+    url: imageUrl,
+    timestamp: firebase.database.ServerValue.TIMESTAMP
+  });
 }
 
 function speak(text) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(utterance);
-    statusText.textContent = text;
+  const utterance = new SpeechSynthesisUtterance(text);
+  window.speechSynthesis.speak(utterance);
+  statusText.textContent = text;
 }
 
-// Initialize the app
 initSpeechRecognition();
 
-// Event listeners
 toggleButton.addEventListener('click', () => {
-    if (isListening) {
-        stopListening();
-    } else {
-        startListening();
-    }
+  if (isListening) {
+    stopListening();
+  } else {
+    startListening();
+  }
 });
 
 document.body.addEventListener('touchstart', () => {
-    if (!isListening) {
-        startListening();
-    }
+  if (!isListening) {
+    startListening();
+  }
 });
