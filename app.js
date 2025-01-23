@@ -19,6 +19,12 @@ let isRecording = false;
 
 const statusText = document.getElementById('status');
 
+// Function for voice feedback
+function speakFeedback(message) {
+    const utterance = new SpeechSynthesisUtterance(message);
+    window.speechSynthesis.speak(utterance);
+}
+
 // Create container for video and buttons
 const container = document.createElement('div');
 container.style.position = 'fixed';
@@ -97,44 +103,30 @@ async function startCamera() {
 
         // Modified touch handler for video element
         videoElement.addEventListener('touchstart', function(e) {
-            e.preventDefault(); // Prevent default touch behavior
+            e.preventDefault();
             if (e.target !== stopButton) {
-                console.log('Capturing image...'); // Debug log
+                speakFeedback('Capturing image');
                 ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
                 const imageData = canvas.toDataURL('image/jpeg', 0.8);
                 uploadImage(imageData);
-                statusText.textContent = 'Image captured!';
-                
-                setTimeout(() => {
-                    if (isRecording) {
-                        statusText.textContent = 'Camera active. Tap anywhere to capture image.';
-                    }
-                }, 1000);
             }
         });
 
         // Add click handler for desktop testing
         videoElement.addEventListener('click', function(e) {
             if (e.target !== stopButton) {
-                console.log('Capturing image...'); // Debug log
+                speakFeedback('Capturing image');
                 ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
                 const imageData = canvas.toDataURL('image/jpeg', 0.8);
                 uploadImage(imageData);
-                statusText.textContent = 'Image captured!';
-                
-                setTimeout(() => {
-                    if (isRecording) {
-                        statusText.textContent = 'Camera active. Tap anywhere to capture image.';
-                    }
-                }, 1000);
             }
         });
 
-        statusText.textContent = 'Camera active. Tap anywhere to capture image.';
+        speakFeedback('Camera active. Tap anywhere to capture image.');
 
     } catch (error) {
         console.error('Camera access error:', error);
-        statusText.textContent = 'Camera access failed. Please try again.';
+        speakFeedback('Camera access failed. Please try again.');
         isRecording = false;
     }
 }
@@ -147,36 +139,36 @@ function stopCamera() {
         if (container.parentNode) {
             container.parentNode.removeChild(container);
         }
-        statusText.textContent = 'Camera stopped. Tap to start again.';
+        speakFeedback('Camera stopped. Tap to start again.');
     }
 }
 
 function uploadImage(imageData) {
-    console.log('Starting image upload...'); // Debug log
+    speakFeedback('Starting image upload');
     const apiKey = '63843b305acfadfbd987e5570952fe17';
     const base64Image = imageData.split(',')[1];
 
     const formData = new FormData();
     formData.append('image', base64Image);
 
-    console.log('Sending to ImgBB...'); // Debug log
+    speakFeedback('Sending to server');
     fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
         method: 'POST',
         body: formData
     })
     .then(response => {
-        console.log('Got response from ImgBB'); // Debug log
+        speakFeedback('Response received');
         return response.json();
     })
     .then(result => {
-        console.log('Upload Response:', result);
         if(result.data && result.data.url) {
+            speakFeedback('Image uploaded successfully');
             saveToDatabase(result.data.url);
         }
     })
     .catch(error => {
+        speakFeedback('Upload failed. Please try again');
         console.error('Upload failed:', error);
-        statusText.textContent = 'Upload failed. Please try again.';
     });
 }
 
@@ -186,8 +178,9 @@ function saveToDatabase(imageUrl) {
         url: imageUrl,
         timestamp: Date.now()
     }).then(() => {
-        console.log('Image URL saved to database:', imageUrl);
+        speakFeedback('Image saved to database');
     }).catch(error => {
+        speakFeedback('Database save failed');
         console.error('Database save failed:', error);
     });
 }
@@ -195,12 +188,14 @@ function saveToDatabase(imageUrl) {
 // Event listeners
 document.body.addEventListener('touchstart', (e) => {
     if (!isRecording && e.target !== stopButton) {
+        speakFeedback('Starting camera');
         startCamera();
     }
 });
 
 document.body.addEventListener('click', (e) => {
     if (!isRecording && e.target !== stopButton) {
+        speakFeedback('Starting camera');
         startCamera();
     }
 });
@@ -217,3 +212,6 @@ window.addEventListener('resize', () => {
         startCamera();
     }
 });
+
+// Initial instruction
+speakFeedback('Welcome to Coin Detection Assistant. Tap anywhere to start the camera.');
