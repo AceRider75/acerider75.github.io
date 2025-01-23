@@ -17,28 +17,62 @@ const database = firebase.database();
 let videoStream;
 let frameCount = 0;
 const FRAMES_BEFORE_CAPTURE = 50;
+let isRecording = false;
 
 const statusText = document.getElementById('status');
 
-// Add video element for live preview
+// Create container for video and buttons
+const container = document.createElement('div');
+container.style.position = 'fixed';
+container.style.top = '0';
+container.style.left = '0';
+container.style.width = '100%';
+container.style.height = '100%';
+container.style.display = 'flex';
+container.style.flexDirection = 'column';
+container.style.alignItems = 'center';
+container.style.backgroundColor = '#000';
+container.style.zIndex = '1000';
+
+// Add video element with fixed dimensions
 const videoElement = document.createElement('video');
 videoElement.style.width = '100%';
-videoElement.style.maxWidth = '400px';
-videoElement.setAttribute('playsinline', true); // Important for iOS
-document.getElementById('app').appendChild(videoElement);
+videoElement.style.height = '100%';
+videoElement.style.objectFit = 'cover';
+videoElement.setAttribute('playsinline', true);
+videoElement.setAttribute('autoplay', true);
+container.appendChild(videoElement);
+
+// Add stop button
+const stopButton = document.createElement('button');
+stopButton.textContent = 'Stop Camera';
+stopButton.style.position = 'fixed';
+stopButton.style.bottom = '20px';
+stopButton.style.zIndex = '1001';
+stopButton.style.padding = '15px 30px';
+stopButton.style.backgroundColor = '#ff4444';
+stopButton.style.color = 'white';
+stopButton.style.border = 'none';
+stopButton.style.borderRadius = '5px';
+stopButton.style.fontSize = '18px';
 
 async function startCamera() {
+    if (isRecording) return;
+    
     try {
         videoStream = await navigator.mediaDevices.getUserMedia({ 
             video: { 
                 facingMode: 'environment',
-                width: { ideal: 1280 },
-                height: { ideal: 720 }
+                width: { ideal: window.innerWidth },
+                height: { ideal: window.innerHeight }
             } 
         });
         
+        document.body.appendChild(container);
+        container.appendChild(stopButton);
         videoElement.srcObject = videoStream;
         await videoElement.play();
+        isRecording = true;
 
         const canvas = document.createElement('canvas');
         canvas.width = videoElement.videoWidth;
@@ -46,6 +80,8 @@ async function startCamera() {
         const ctx = canvas.getContext('2d');
 
         function captureFrame() {
+            if (!isRecording) return;
+            
             if (frameCount >= FRAMES_BEFORE_CAPTURE) {
                 ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
                 const imageData = canvas.toDataURL('image/jpeg', 0.8);
@@ -54,9 +90,7 @@ async function startCamera() {
             } else {
                 frameCount++;
             }
-            if (videoStream) {
-                requestAnimationFrame(captureFrame);
-            }
+            requestAnimationFrame(captureFrame);
         }
 
         captureFrame();
@@ -65,6 +99,7 @@ async function startCamera() {
     } catch (error) {
         console.error('Camera access error:', error);
         statusText.textContent = 'Camera access failed. Please try again.';
+        isRecording = false;
     }
 }
 
@@ -73,7 +108,11 @@ function stopCamera() {
         videoStream.getTracks().forEach(track => track.stop());
         videoStream = null;
         frameCount = 0;
-        statusText.textContent = 'Camera stopped.';
+        isRecording = false;
+        if (container.parentNode) {
+            container.parentNode.removeChild(container);
+        }
+        statusText.textContent = 'Camera stopped. Tap to start again.';
     }
 }
 
@@ -107,23 +146,39 @@ function saveToDatabase(imageUrl) {
         url: imageUrl,
         timestamp: Date.now()
     }).then(() => {
-        console.log('Image URL saved to database');
+        console.log('Image URL saved to database:', imageUrl);
     }).catch(error => {
         console.error('Database save failed:', error);
     });
 }
 
-// Event listeners for starting camera
-document.body.addEventListener('touchstart', startCamera);
-document.body.addEventListener('click', startCamera);
-
-// Double tap to stop camera
-let lastTap = 0;
-document.body.addEventListener('touchend', function(event) {
-    const currentTime = new Date().getTime();
-    const tapLength = currentTime - lastTap;
-    if (tapLength < 500 && tapLength > 0) {
-        stopCamera();
+// Event listeners
+document.body.addEventListener('touchstart', (e) => {
+    if (!isRecording) {
+        startCamera();
     }
-    lastTap = currentTime;
+});
+
+document.body.addEventListener('click', (e) => {
+    if (!isRecording && e.target !== stopButton) {
+        startCamera();
+    }
+});
+
+stopButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    stopCamera();
+});
+
+// Prevent default touch behaviors
+document.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+}, { passive: false });
+
+// Handle orientation changes
+window.addEventListener('resize', () => {
+    if (isRecording) {
+        stopCamera();
+        startCamera();
+    }
 });
