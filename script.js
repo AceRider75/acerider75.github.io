@@ -47,7 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         research: {
             ongoing: [ { title: 'Regenerative Power Systems', abstract: 'Using dynamos to feed energy spent by a machine back into its power source for longer operational runs.' } ],
-            completed: [ { title: 'Supercapacitors vs. Batteries', abstract: 'Can supercapacitors replace batteries for autonomous systems? An analysis of power density, energy density, and lifecycle.' } ]
+            completed: [
+                { title: 'Supercapacitors vs. Batteries', abstract: 'Can supercapacitors replace batteries for autonomous systems? An analysis of power density, energy density, and lifecycle.' },
+                { title: 'Trim, Thrust Required, and Power Required Analysis of a Cropped Delta Wing UAV Using MATLAB', abstract: 'Performed aerodynamic and power analysis for a cropped delta wing UAV using MATLAB, including trim calculations, thrust and power requirements for various flight conditions.' }
+            ]
         },
         blog: [
             { title: 'Building a K-Map Solver: A Deep Dive into Digital Logic with JS', date: 'Sep 15, 2025', excerpt: 'How I translated the principles of Karnaugh maps into a functional web-based tool for digital logic simplification...', link: 'blogs/blog4.html' },
@@ -85,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'UAV & Robotics (SITL, Gazebo, ROS)', level: 85 },
             { name: 'Electronics (Power Electronics, Analog Design)', level: 80 },
             { name: 'Networking & Communication', level: 75 },
-            { name: 'MATLAB & Simulink', level: 70 }
+            { name: 'MATLAB & Simulink', level: 70 },
+            { name: 'MathWorks', level: 70 }
         ],
         timeline: [
             { year: '2022', event: 'Class 10th Boards', institution: 'Asian International School', link: 'https://www.aiskolkata.org/' },
@@ -94,8 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { year: '2024', event: 'Self-Taught Web Development & Arduino' },
             { year: '2024', event: 'Started B.E. in Electrical Engineering', institution: 'Jadavpur University', link: 'http://www.jaduniv.edu.in/' },
             { year: '2025', event: 'Foundation in Data Science', institution: 'IIT Madras (Online)', link: 'https://www.iitm.ac.in/' },
-            { year: '2025', event: 'Def Space Intern', institution: 'BSERC', link: '' },
-            { year: '2025', event: 'Hackathon Ambassador for HackHazards’ 2025', institution: 'Namespace community', link: '' }
+            { year: '2025', event: 'Hackathon Ambassador for HackHazards’ 2025', institution: 'Namespace community', link: '' },
+            { year: '2025', event: 'Def Space Intern', institution: 'BSERC', link: '' }
         ]
     };
 
