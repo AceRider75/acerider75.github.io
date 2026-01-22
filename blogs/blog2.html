@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Crop Disease Detection | Subhrajit Mukherjee</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header style="text-align: center; padding: 2rem;">
+        <h1>Machine Learning for Crop Disease Detection</h1>
+        <p>November 10, 2025</p>
+        <a href="../index.html" class="cta-button">Back to Home</a>
+    </header>
+
+    <main style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+        <p>In agriculture, early detection of crop diseases can make the difference between a bountiful harvest and significant losses. Leveraging machine learning techniques, I developed a model capable of identifying common plant diseases with remarkable accuracy. This project utilized a dataset of over 87,000 images to train a robust classification system.</p>
+
+        <h2>The Dataset</h2>
+        <p>The foundation of any machine learning model is quality data. The dataset comprised:</p>
+        <ul>
+            <li>87,000+ high-resolution images of various crops</li>
+            <li>Multiple disease categories including fungal infections, bacterial spots, and viral diseases</li>
+            <li>Diverse environmental conditions (lighting, angles, backgrounds)</li>
+            <li>Healthy plant images for comparison</li>
+        </ul>
+
+        <h2>Model Architecture</h2>
+        <p>After experimenting with various architectures, a convolutional neural network (CNN) proved most effective. The model featured:</p>
+        <ul>
+            <li>Multiple convolutional layers for feature extraction</li>
+            <li>Pooling layers to reduce spatial dimensions</li>
+            <li>Dropout layers to prevent overfitting</li>
+            <li>A final dense layer with softmax activation for classification</li>
+        </ul>
+
+        <h2>Training Process</h2>
+        <p>The training involved several key steps:</p>
+        <ol>
+            <li><strong>Data Preprocessing:</strong> Image resizing, normalization, and augmentation</li>
+            <li><strong>Model Compilation:</strong> Using Adam optimizer and categorical cross-entropy loss</li>
+            <li><strong>Training:</strong> Multiple epochs with early stopping to prevent overfitting</li>
+            <li><strong>Validation:</strong> Separate validation set to monitor performance</li>
+        </ol>
+
+        <h2>Achieving 95% Accuracy</h2>
+        <p>The final model achieved an impressive 95% accuracy on the test set. This performance was attributed to:</p>
+        <ul>
+            <li>Extensive data augmentation techniques</li>
+            <li>Careful hyperparameter tuning</li>
+            <li>Transfer learning from pre-trained models</li>
+            <li>Rigorous validation and testing</li>
+        </ul>
+
+        <h2>Practical Applications</h2>
+        <p>This model has significant real-world applications:</p>
+        <ul>
+            <li>Early disease detection in agricultural fields</li>
+            <li>Mobile applications for farmers</li>
+            <li>Automated monitoring systems</li>
+            <li>Integration with drone-based crop surveillance</li>
+        </ul>
+
+        <h2>Challenges and Solutions</h2>
+        <p>Several challenges were encountered during development:</p>
+        <ul>
+            <li><strong>Class Imbalance:</strong> Addressed through weighted loss functions</li>
+            <li><strong>Computational Resources:</strong> Optimized using efficient architectures</li>
+            <li><strong>Generalization:</strong> Extensive testing across different crops and conditions</li>
+        </ul>
+
+        <p>This project demonstrates the power of machine learning in addressing real-world agricultural challenges, potentially revolutionizing crop management practices.</p>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem;">
+        <p>&copy; 2026 Subhrajit Mukherjee</p>
+    </footer>
+</body>
+</html>

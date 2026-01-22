@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designing an Autonomous Multi-UAV System | Subhrajit Mukherjee</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header style="text-align: center; padding: 2rem;">
+        <h1>Designing an Autonomous Multi-UAV System</h1>
+        <p>December 15, 2025</p>
+        <a href="../index.html" class="cta-button">Back to Home</a>
+    </header>
+
+    <main style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+        <p>In the rapidly evolving field of unmanned aerial vehicles (UAVs), multi-drone systems offer unprecedented capabilities for applications ranging from surveillance to delivery services. This blog post delves into my experience designing and implementing an autonomous multi-UAV system, focusing on the software architecture, ground control station, and real-world deployment challenges.</p>
+
+        <h2>The Challenge</h2>
+        <p>Coordinating multiple drones autonomously requires sophisticated software that can handle communication, mission planning, and real-time decision-making. The system needed to support two drones operating in tandem, with a ground control station providing telemetry monitoring and mission execution capabilities.</p>
+
+        <h2>Software Architecture</h2>
+        <p>The core of the system was built using Python, leveraging libraries for robotics and simulation. The software architecture included:</p>
+        <ul>
+            <li><strong>Communication Layer:</strong> Inter-drone communication protocols for coordination</li>
+            <li><strong>Mission Planning:</strong> Algorithms for path optimization and task allocation</li>
+            <li><strong>Telemetry System:</strong> Real-time data transmission between drones and ground station</li>
+            <li><strong>Fault Tolerance:</strong> Mechanisms for handling communication failures and drone malfunctions</li>
+        </ul>
+
+        <h2>Ground Control Station</h2>
+        <p>The ground control interface was designed to provide operators with comprehensive monitoring capabilities. Key features included:</p>
+        <ul>
+            <li>Real-time video feeds from both drones</li>
+            <li>Telemetry data visualization (altitude, speed, battery levels)</li>
+            <li>Mission progress tracking</li>
+            <li>Emergency override controls</li>
+        </ul>
+
+        <h2>Testing and Validation</h2>
+        <p>Before real-world deployment, extensive testing was conducted using Software-in-the-Loop (SITL) simulation. This approach allowed us to:</p>
+        <ul>
+            <li>Test various scenarios without risking hardware</li>
+            <li>Validate communication protocols</li>
+            <li>Optimize mission parameters</li>
+            <li>Debug edge cases in a controlled environment</li>
+        </ul>
+
+        <h2>Hardware Implementation</h2>
+        <p>The final system was implemented using Raspberry Pi computers for onboard processing and Pixhawk Cube Orange+ flight controllers. This combination provided the necessary computational power while maintaining a compact form factor suitable for UAV applications.</p>
+
+        <h2>Lessons Learned</h2>
+        <p>This project highlighted the importance of robust communication systems in multi-agent scenarios. The challenges of synchronizing multiple autonomous agents taught valuable lessons in distributed systems design and real-time processing.</p>
+
+        <p>The successful deployment of this system demonstrates the potential of multi-UAV technology in various domains, from agriculture to search and rescue operations.</p>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem;">
+        <p>&copy; 2026 Subhrajit Mukherjee</p>
+    </footer>
+</body>
+</html>

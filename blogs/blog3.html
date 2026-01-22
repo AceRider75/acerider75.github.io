@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototyping a DC-DC Boost Converter | Subhrajit Mukherjee</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header style="text-align: center; padding: 2rem;">
+        <h1>Prototyping a DC-DC Boost Converter</h1>
+        <p>October 5, 2025</p>
+        <a href="../index.html" class="cta-button">Back to Home</a>
+    </header>
+
+    <main style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+        <p>DC-DC converters are essential components in modern electronics, enabling efficient power management in embedded systems. This project involved the complete design, simulation, and prototyping of a boost converter for embedded power applications, from concept to functional prototype.</p>
+
+        <h2>Understanding Boost Converters</h2>
+        <p>A DC-DC boost converter steps up voltage from a lower input to a higher output level. Key principles include:</p>
+        <ul>
+            <li>Inductor energy storage during switch-on phase</li>
+            <li>Energy transfer to output during switch-off phase</li>
+            <li>Diode for unidirectional current flow</li>
+            <li>Capacitor for output voltage smoothing</li>
+        </ul>
+
+        <h2>Design Specifications</h2>
+        <p>The converter was designed with the following requirements:</p>
+        <ul>
+            <li>Input voltage: 5V DC</li>
+            <li>Output voltage: 12V DC</li>
+            <li>Output current: 1A</li>
+            <li>Efficiency: >85%</li>
+            <li>Switching frequency: 100kHz</li>
+        </ul>
+
+        <h2>Simulation Phase</h2>
+        <p>Before physical prototyping, extensive simulation was performed using LTspice:</p>
+        <ul>
+            <li>Circuit schematic design</li>
+            <li>Component value calculations</li>
+            <li>Transient analysis for startup behavior</li>
+            <li>Efficiency calculations</li>
+            <li>Thermal analysis</li>
+        </ul>
+
+        <h2>Component Selection</h2>
+        <p>Careful component selection was crucial for performance and reliability:</p>
+        <ul>
+            <li><strong>Inductor:</strong> 100μH with low DCR for efficiency</li>
+            <li><strong>Switch:</strong> MOSFET with low RDS(on) for minimal losses</li>
+            <li><strong>Diode:</strong> Schottky diode for fast switching</li>
+            <li><strong>Capacitor:</strong> Low ESR electrolytic for output filtering</li>
+            <li><strong>Controller:</strong> PWM IC for precise switching control</li>
+        </ul>
+
+        <h2>Prototyping Process</h2>
+        <p>The physical prototype was built following these steps:</p>
+        <ol>
+            <li>PCB design using KiCad</li>
+            <li>Component placement and soldering</li>
+            <li>Initial power-up with current limiting</li>
+            <li>Debugging and optimization</li>
+            <li>Load testing and efficiency measurement</li>
+        </ol>
+
+        <h2>Testing and Validation</h2>
+        <p>Rigorous testing ensured the converter met all specifications:</p>
+        <ul>
+            <li>Output voltage regulation under varying loads</li>
+            <li>Efficiency measurement across different input voltages</li>
+            <li>Thermal performance testing</li>
+            <li>Electromagnetic interference (EMI) assessment</li>
+        </ul>
+
+        <h2>Challenges Overcome</h2>
+        <p>Several challenges were encountered and resolved:</p>
+        <ul>
+            <li><strong>Switching Losses:</strong> Optimized gate drive circuitry</li>
+            <li><strong>EMI Issues:</strong> Added filtering components</li>
+            <li><strong>Thermal Management:</strong> Improved heat sinking</li>
+            <li><strong>Stability:</strong> Fine-tuned compensation network</li>
+        </ul>
+
+        <h2>Applications and Future Work</h2>
+        <p>This boost converter design serves as a foundation for various embedded applications:</p>
+        <ul>
+            <li>Portable electronics power supplies</li>
+            <li>IoT device power management</li>
+            <li>Automotive electronics</li>
+            <li>Renewable energy systems</li>
+        </ul>
+
+        <p>Future enhancements could include digital control, advanced topologies, and integration with battery management systems.</p>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem;">
+        <p>&copy; 2026 Subhrajit Mukherjee</p>
+    </footer>
+</body>
+</html>

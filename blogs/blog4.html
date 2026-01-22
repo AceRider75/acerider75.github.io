@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building a K-Map Solver: A Deep Dive into Digital Logic with JS | Subhrajit Mukherjee</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header style="text-align: center; padding: 2rem;">
+        <h1>Building a K-Map Solver: A Deep Dive into Digital Logic with JS</h1>
+        <p>September 15, 2025</p>
+        <a href="../index.html" class="cta-button">Back to Home</a>
+    </header>
+
+    <main style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+        <p>Digital logic design is a cornerstone of computer engineering, and Karnaugh maps (K-maps) are an essential tool for simplifying Boolean expressions. In this project, I developed a web-based K-map solver using JavaScript, HTML, and CSS, making complex logic simplification accessible through an intuitive interface.</p>
+
+        <h2>The Problem with Manual K-Maps</h2>
+        <p>Traditional K-map solving involves:</p>
+        <ul>
+            <li>Drawing grids for different numbers of variables</li>
+            <li>Manually placing 1s and 0s</li>
+            <li>Identifying adjacent groups</li>
+            <li>Writing simplified expressions</li>
+        </ul>
+        <p>This process can be time-consuming and error-prone, especially for students learning digital logic.</p>
+
+        <h2>Web-Based Solution</h2>
+        <p>The application features:</p>
+        <ul>
+            <li><strong>Dynamic Grid Generation:</strong> Automatically creates K-maps for 2-4 variables</li>
+            <li><strong>Interactive Input:</strong> Click to toggle cells between 0, 1, and don't care</li>
+            <li><strong>Real-time Simplification:</strong> Instant calculation of minimized expressions</li>
+            <li><strong>Visual Grouping:</strong> Highlights grouped terms with different colors</li>
+            <li><strong>Step-by-Step Explanation:</strong> Shows the logic behind each simplification</li>
+        </ul>
+
+        <h2>Technical Implementation</h2>
+        <p>The core algorithm involves:</p>
+        <ol>
+            <li><strong>Grid Representation:</strong> 2D array to store cell values</li>
+            <li><strong>Grouping Logic:</strong> Recursive function to find all possible rectangular groups</li>
+            <li><strong>Expression Generation:</strong> Convert grouped cells to Boolean terms</li>
+            <li><strong>Minimization:</strong> Remove redundant terms using absorption and consensus theorems</li>
+        </ol>
+
+        <h2>Key Challenges</h2>
+        <p>Implementing the solver required solving several algorithmic challenges:</p>
+        <ul>
+            <li><strong>Gray Code Ordering:</strong> Proper cell arrangement for adjacent detection</li>
+            <li><strong>Wrap-around Groups:</strong> Handling groups that wrap around grid edges</li>
+            <li><strong>Don't Care Conditions:</strong> Optimizing with unspecified inputs</li>
+            <li><strong>Multiple Solutions:</strong> Finding the most minimal expression</li>
+        </ul>
+
+        <h2>User Interface Design</h2>
+        <p>The interface prioritizes usability:</p>
+        <ul>
+            <li>Clean, responsive design that works on all devices</li>
+            <li>Intuitive controls for input and visualization</li>
+            <li>Real-time feedback and error checking</li>
+            <li>Educational tooltips explaining concepts</li>
+        </ul>
+
+        <h2>Educational Impact</h2>
+        <p>This tool serves as both a practical utility and a learning aid:</p>
+        <ul>
+            <li>Helps students verify their manual solutions</li>
+            <li>Demonstrates the step-by-step K-map process</li>
+            <li>Reduces time spent on repetitive calculations</li>
+            <li>Encourages experimentation with different input combinations</li>
+        </ul>
+
+        <p>The K-map solver represents the intersection of theoretical computer science concepts and practical web development, making complex digital logic more accessible to students and engineers alike.</p>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem;">
+        <p>&copy; 2026 Subhrajit Mukherjee</p>
+    </footer>
+</body>
+</html>
