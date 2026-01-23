@@ -19,10 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = {
         projects: {
             ongoing: [
-                { name: 'NIDAR', description: 'Design and simulation of a two-drone autonomous system for precision agriculture, focusing on coordinated flight patterns and data collection for crop monitoring.', image: 'images/image1.jpg', tech: 'Solidworks' },
                 { name: 'Chronos OS', description: 'Currently developing a time-aware operating system using Rust. Implemented kernel and memory read/write functionality. Developed RTL8139 network driver and mouse driver enabling drag-and-drop window interaction. Built a basic window manager.', image: 'images/image2.jpg', tech: 'Rust' }
             ],
             completed: [
+                { name: 'NIDAR', description: 'Design and simulation of a two-drone autonomous system for precision agriculture, focusing on coordinated flight patterns and data collection for crop monitoring.', image: 'images/image1.jpg', tech: 'Solidworks' },
                 { name: 'Digital Electronics Helper', description: 'Helps with Karnaugh Maps and BJT configurations.', image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&q=80&w=1080', tech: 'HTML5,CSS3,JS' },
                 { name: 'Ahjin Code Conclave Website Blueprint', description: 'Helped propose a structure for the AhjinCC website.', image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&q=80&w=1080', tech: 'HTML5,CSS3,JS' },
                 { name: 'Syntech', description: 'An adaptive programming learning platform.', image: 'images/image3.jpg', tech: 'HTML5,CSS3,JS' },
@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { title: 'Chronos OS: Phases 20 & 21 Report - Window Interaction, Collision Detection, and CMOS RTC', date: 'Jan 21, 2026', excerpt: 'With the graphical compositor established, the next stage of development focused on transforming the passive display into an interactive environment...', link: 'docs/chronos-16.pdf' },
             { title: 'Chronos OS: Phase 22 Report - Multi-Tasking GUI and Window Decoration', date: 'Jan 21, 2026', excerpt: 'Phase 22 transformed the graphical interface from a single-context display into a multiwindow desktop environment...', link: 'docs/chronos-17.pdf' },
             { title: 'Chronos OS: Phases 23 & 24 Report - Writable Virtual Filesystem and System Monitoring', date: 'Jan 22, 2026', excerpt: 'Phases 23 and 24 focused on transforming Chronos from a static runtime into a dynamic environment...', link: 'docs/chronos-18.pdf' },
+            { title: 'Chronos OS: Phases 25-28 Report - Persistent Storage, Filesystems, and Disk-Based Execution', date: 'Jan 23, 2026', excerpt: 'Following the implementation of the system monitor, development shifted towards achieving data persistence...', link: 'docs/chronos-19.pdf' },
             { title: 'Designing an Autonomous Multi-UAV System', date: 'Dec 15, 2025', excerpt: 'Exploring the challenges and solutions in building a ground control station for two autonomous drones, including telemetry, communication, and SITL testing.', link: 'blogs/blog1.html' },
             { title: 'Machine Learning for Crop Disease Detection', date: 'Nov 10, 2025', excerpt: 'How I trained a model on 87k+ images to achieve 95% accuracy in identifying plant diseases, using Python and ML libraries.', link: 'blogs/blog2.html' },
             { title: 'Prototyping a DC-DC Boost Converter', date: 'Oct 5, 2025', excerpt: 'From simulation in LTspice to physical prototyping: the process of designing and testing a boost converter for embedded applications.', link: 'blogs/blog3.html' }
