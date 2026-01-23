@@ -93,14 +93,14 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'MathWorks', level: 70 }
         ],
         timeline: [
-            { year: '2022', event: 'Class 10th Boards', institution: 'Asian International School', link: 'https://www.aiskolkata.org/' },
+            { year: '2022', event: 'Class 10th Boards', institution: 'Asian International School', link: 'https://www.aisedu.org/' },
             { year: '2022', event: 'Video-Editing for Freewd', institution: 'YouTube Channel', link: 'https://www.youtube.com/@Freewdd' },
-            { year: '2024', event: 'Class 12th Boards', institution: 'Haryana Vidya Mandir', link: 'https://www.hvm.org.in/' },
+            { year: '2024', event: 'Class 12th Boards', institution: 'Haryana Vidya Mandir', link: 'https://hariyanavidyamandir.org/' },
             { year: '2024', event: 'Self-Taught Web Development & Arduino' },
-            { year: '2024', event: 'Started B.E. in Electrical Engineering', institution: 'Jadavpur University', link: 'http://www.jaduniv.edu.in/' },
+            { year: '2024', event: 'Started B.E. in Electrical Engineering', institution: 'Jadavpur University', link: 'https://jadavpuruniversity.in/' },
             { year: '2025', event: 'Foundation in Data Science', institution: 'IIT Madras (Online)', link: 'https://www.iitm.ac.in/' },
-            { year: '2025', event: 'Hackathon Ambassador for HackHazards’ 2025', institution: 'Namespace community', link: '' },
-            { year: '2025', event: 'Def Space Intern', institution: 'BSERC', link: '' }
+            { year: '2025', event: 'Hackathon Ambassador for HackHazards’ 2025', institution: 'Namespace community', link: 'https://hackhazards.namespacecomm.in/' },
+            { year: '2025', event: 'Def Space Intern', institution: 'BSERC', link: 'https://bserc.org/' }
         ]
     };
 
